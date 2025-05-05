@@ -1,18 +1,16 @@
 import psutil
-
 from fastapi import FastAPI
 
 app = FastAPI()
 
-
-@app.get("/health")
-def read_health():
-    return {"status": "OK", "message": "SysPulse is live!"} 
-
-
 # Function to convert bytes to GB
 def bytes_to_gb(b):
     return round(b / (1024 ** 3), 2)
+
+@app.get("/health")
+def read_health():
+    return {"status": "OK", "message": "SysPulse is live!"}
+
 @app.get("/metrics/memory")
 def get_memory_metrics():
     mem = psutil.virtual_memory()
@@ -23,7 +21,6 @@ def get_memory_metrics():
         "percent": mem.percent,
     }
 
-
 @app.get("/metrics/disk")
 def get_disk_metrics():
     disk = psutil.disk_usage("/")
@@ -33,6 +30,7 @@ def get_disk_metrics():
         "free_gb": bytes_to_gb(disk.free),
         "percent": disk.percent,
     }
+
 @app.get("/metrics/cpu")
 def get_cpu_metrics():
     return {"cpu_percent": psutil.cpu_percent(interval=1)}
@@ -40,4 +38,3 @@ def get_cpu_metrics():
 @app.get("/health")
 def health():
     return {"status": "healthy"}
-

@@ -17,6 +17,4 @@ EXPOSE 8000
 ENV PYTHONPATH=/app/src
 
 # Command to run the application
-
-CMD ["uvicorn", "app.app:app", "--host", "0.0.0.0", "--port", "8000"]
-
+CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]

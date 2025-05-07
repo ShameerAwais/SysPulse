@@ -18,8 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.10
-          architecture: "x64"  # Use a supported version (e.g., 3.10)
+          python-version: 3.14.0-alpha.7  # Use a supported version (e.g., 3.10)
       - name: Install dependencies
         run: |
           pip install -r src/requirements.txt
@@ -38,9 +37,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.10
-          architecture: "x64"  # Use a supported version (e.g., 3.10)
-      - name: Install dependencies
+          python-version: 3.14.0-alpha.7
+      - name: Install dependencies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
         run: |
           pip install -r src/requirements.txt
       - name: Run tests
@@ -48,7 +46,7 @@ jobs:
           pip install pytest
           pytest --maxfail=1 --disable-warnings -q
 
-  # Job 3: Build Docker image
+  # Job 3: Build Docker imagea
   docker_build:
     runs-on: ubuntu-latest
     needs: tests  # Build Docker image only after tests are successful

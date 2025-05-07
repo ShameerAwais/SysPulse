@@ -11,5 +11,18 @@ __pycache__/
 .grafana/
 node_modules/
 
+# Ignore Mac system files
+.DS_Store
+__MACOSX
+
+# Ignore database files
+*.sqlite3
+*.db
+
+# Ignore Terraform files
 .terraform/
-*.zip
+*.tfstate
+*.tfstate.backup
+
+# Ignore sensitive keys
+*.pem

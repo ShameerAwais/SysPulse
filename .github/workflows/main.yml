@@ -18,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.14.0-alpha.7  # Use a supported version (e.g., 3.10)
+          python-version: python-3.13.1-linux-24.04  # Use a supported version (e.g., 3.10)
       - name: Install dependencies
         run: |
           pip install -r src/requirements.txt
@@ -37,7 +37,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.14.0-alpha.7
+          python-version: python-3.13.1-linux-24.04
       - name: Install dependencies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
         run: |
           pip install -r src/requirements.txt

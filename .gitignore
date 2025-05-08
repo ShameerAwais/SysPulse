@@ -11,6 +11,7 @@ __pycache__/
 .grafana/
 node_modules/
 
+
 # Ignore Mac system files
 .DS_Store
 __MACOSX
@@ -26,3 +27,7 @@ __MACOSX
 
 # Ignore sensitive keys
 *.pem
+
+.terraform/
+*.zip
+

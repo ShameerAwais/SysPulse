@@ -1,12 +1,16 @@
-import psutil
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from prometheus_fastapi_instrumentator import Instrumentator
+import psutil
 
 app = FastAPI()
 
 # Initialize Prometheus Instrumentator
 instrumentator = Instrumentator()
 instrumentator.instrument(app).expose(app)
+
+# Serve static files for the frontend (HTML, CSS, JS)
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 # Function to convert bytes to GB
 def bytes_to_gb(b):

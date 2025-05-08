@@ -1,20 +1,28 @@
+# Start with a slim Python image
 FROM python:3.10-slim
 
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the requirements.txt first to leverage Docker cache
+# Copy only the requirements.txt first to take advantage of Docker layer caching
 COPY requirements.txt /app/
 
+# Install Python dependencies
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# Copy the entire src folder (app.py, Dockerfile, and other files) into the container's /app directory
+# Copy the backend and frontend code into the container
+# This step includes both your backend (app.py) and frontend files (index.html, app.js, style.css)
 COPY . /app/
 
-# Expose the port for the application (assuming FastAPI runs on 8000)
+# Expose the port where FastAPI will run (default is 8000)
 EXPOSE 8000
 
-# Set the PYTHONPATH environment variable so that Python can locate 'src'
+# Set the PYTHONPATH environment variable so that Python can find 'src'
 ENV PYTHONPATH=/app/src
 
-# Command to run the application
+# Serve the static files from the 'frontend' directory via FastAPI
+# This will allow serving HTML, CSS, JS under the '/static' route
+RUN mkdir -p /app/src/frontend && cp -r /app/frontend /app/src/
+
+# Command to run the application (uvicorn is the ASGI server for FastAPI)
 CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]

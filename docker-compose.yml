@@ -3,8 +3,8 @@ version: '3'
 services:
   app:
     build:
-      context: ./src  # Build context should be the src directory
-      dockerfile: Dockerfile  # Dockerfile should be in the src directory
+      context: ./src
+      dockerfile: Dockerfile
     volumes:
       - ./src:/app
     ports:
@@ -26,6 +26,20 @@ services:
       - "3000:3000"
     volumes:
       - grafana-storage:/var/lib/grafana
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node_exporter
+    ports:
+      - "9100:9100"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
 
 volumes:
   grafana-storage:

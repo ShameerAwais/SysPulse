@@ -1,7 +1,12 @@
 import psutil
 from fastapi import FastAPI
+from prometheus_fastapi_instrumentator import Instrumentator
 
 app = FastAPI()
+
+# Initialize Prometheus Instrumentator
+instrumentator = Instrumentator()
+instrumentator.instrument(app).expose(app)
 
 # Function to convert bytes to GB
 def bytes_to_gb(b):
@@ -34,7 +39,3 @@ def get_disk_metrics():
 @app.get("/metrics/cpu")
 def get_cpu_metrics():
     return {"cpu_percent": psutil.cpu_percent(interval=1)}
-
-@app.get("/health")
-def health():
-    return {"status": "healthy"}

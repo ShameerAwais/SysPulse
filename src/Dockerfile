@@ -14,6 +14,10 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 # This step includes both your backend (app.py) and frontend files (index.html, app.js, style.css)
 COPY . /app/
 
+# Copy templates and static files into the correct location
+COPY syspulse/templates /app/syspulse/templates
+COPY syspulse/static /app/syspulse/static
+
 # Expose the port where FastAPI will run (default is 8000)
 EXPOSE 8000
 

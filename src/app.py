@@ -19,11 +19,11 @@ if os.path.exists(frontend_dir):
 def bytes_to_gb(b):
     return round(b / (1024 ** 3), 2)
 
-@app.get("/health")
+@app.get("/api/health")
 def read_health():
     return {"status": "OK", "message": "SysPulse is live!"}
 
-@app.get("/metrics/memory")
+@app.get("/api/metrics/memory")
 def get_memory_metrics():
     mem = psutil.virtual_memory()
     return {
@@ -33,7 +33,7 @@ def get_memory_metrics():
         "percent": mem.percent,
     }
 
-@app.get("/metrics/disk")
+@app.get("/api/metrics/disk")
 def get_disk_metrics():
     disk = psutil.disk_usage("/")
     return {
@@ -43,6 +43,6 @@ def get_disk_metrics():
         "percent": disk.percent,
     }
 
-@app.get("/metrics/cpu")
+@app.get("/api/metrics/cpu")
 def get_cpu_metrics():
     return {"cpu_percent": psutil.cpu_percent(interval=1)}

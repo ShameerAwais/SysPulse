@@ -13,15 +13,18 @@ function updateTimestamp() {
 async function fetchMetrics() {
     try {
         // Fetch CPU metrics
-        const cpuResponse = await fetch('/metrics/cpu');
+        const cpuResponse = await fetch('/api/metrics/cpu');
+        if (!cpuResponse.ok) throw new Error(`CPU metrics failed: ${cpuResponse.statusText}`);
         const cpuData = await cpuResponse.json();
         
         // Fetch Memory metrics
-        const memoryResponse = await fetch('/metrics/memory');
+        const memoryResponse = await fetch('/api/metrics/memory');
+        if (!memoryResponse.ok) throw new Error(`Memory metrics failed: ${memoryResponse.statusText}`);
         const memoryData = await memoryResponse.json();
         
         // Fetch Disk metrics
-        const diskResponse = await fetch('/metrics/disk');
+        const diskResponse = await fetch('/api/metrics/disk');
+        if (!diskResponse.ok) throw new Error(`Disk metrics failed: ${diskResponse.statusText}`);
         const diskData = await diskResponse.json();
         
         // Update CPU metrics
@@ -41,6 +44,11 @@ async function fetchMetrics() {
         
         // Update timestamp
         updateTimestamp();
+        
+        // Reset error styling
+        document.querySelectorAll('.metric-card span').forEach(span => {
+            span.style.color = '';
+        });
     } catch (error) {
         console.error('Error fetching metrics:', error);
         // Show error state in UI

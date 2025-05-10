@@ -12,23 +12,32 @@ function updateTimestamp() {
 // Function to fetch and update metrics
 async function fetchMetrics() {
     try {
-        const response = await fetch('/api/metrics');
-        const data = await response.json();
+        // Fetch CPU metrics
+        const cpuResponse = await fetch('/metrics/cpu');
+        const cpuData = await cpuResponse.json();
+        
+        // Fetch Memory metrics
+        const memoryResponse = await fetch('/metrics/memory');
+        const memoryData = await memoryResponse.json();
+        
+        // Fetch Disk metrics
+        const diskResponse = await fetch('/metrics/disk');
+        const diskData = await diskResponse.json();
         
         // Update CPU metrics
-        document.getElementById('cpu-percent').textContent = formatNumber(data.cpu.percent);
+        document.getElementById('cpu-percent').textContent = formatNumber(cpuData.cpu_percent);
         
         // Update Memory metrics
-        document.getElementById('memory-percent').textContent = formatNumber(data.memory.percent);
-        document.getElementById('memory-total').textContent = formatNumber(data.memory.total);
-        document.getElementById('memory-used').textContent = formatNumber(data.memory.used);
-        document.getElementById('memory-free').textContent = formatNumber(data.memory.free);
+        document.getElementById('memory-percent').textContent = formatNumber(memoryData.percent);
+        document.getElementById('memory-total').textContent = formatNumber(memoryData.total_gb);
+        document.getElementById('memory-used').textContent = formatNumber(memoryData.used_gb);
+        document.getElementById('memory-free').textContent = formatNumber(memoryData.free_gb);
         
         // Update Disk metrics
-        document.getElementById('disk-percent').textContent = formatNumber(data.disk.percent);
-        document.getElementById('disk-total').textContent = formatNumber(data.disk.total);
-        document.getElementById('disk-used').textContent = formatNumber(data.disk.used);
-        document.getElementById('disk-free').textContent = formatNumber(data.disk.free);
+        document.getElementById('disk-percent').textContent = formatNumber(diskData.percent);
+        document.getElementById('disk-total').textContent = formatNumber(diskData.total_gb);
+        document.getElementById('disk-used').textContent = formatNumber(diskData.used_gb);
+        document.getElementById('disk-free').textContent = formatNumber(diskData.free_gb);
         
         // Update timestamp
         updateTimestamp();

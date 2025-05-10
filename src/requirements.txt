@@ -2,3 +2,6 @@ fastapi
 uvicorn[standard]
 psutil
 prometheus_fastapi_instrumentator
+pytest
+pytest-cov
+httpx

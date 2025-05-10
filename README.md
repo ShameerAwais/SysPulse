@@ -1,123 +1,144 @@
-# SysPulse 🚀
+# SysPulse - System Monitoring Dashboard
 
-A system monitoring tool for Windows, macOS, and Linux that provides real-time metrics about your system's resources.
+A modern, real-time system monitoring dashboard built with FastAPI, Docker, Prometheus, and Grafana. Monitor your system's CPU, memory, disk usage, and more with a beautiful, responsive interface.
+
+![SysPulse Dashboard](docs/images/dashboard.png)
 
 ## Features
 
-- Real-time CPU usage monitoring
-- Memory usage tracking
-- Disk space monitoring
-- Beautiful web interface
-- Remote access support
-- Cross-platform compatibility
+- 📊 Real-time system metrics monitoring
+- 💻 CPU usage and performance tracking
+- 🧠 Memory utilization and availability
+- 💾 Disk space monitoring
+- 🌐 Network statistics
+- ⚡ Fast and responsive UI
+- 🔄 Auto-refreshing metrics
+- 🐳 Docker containerization
+- 📈 Prometheus metrics integration
+- 🎨 Grafana visualization support
 
-## Installation
+## Prerequisites
 
-### From Source
+- Python 3.8+
+- Docker and Docker Compose
+- Git
+
+## Quick Start
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/ShameerAwais/SysPulse.git
+git clone https://github.com/yourusername/SysPulse.git
 cd SysPulse
 ```
 
-2. Install the package:
+2. Start the application using Docker Compose:
 ```bash
-pip install -e .
+docker-compose up -d
 ```
 
-### Using pip
+3. Access the dashboard:
+- Web Interface: http://localhost:8000
+- API Documentation: http://localhost:8000/docs
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3000
 
-```bash
-pip install syspulse
-```
+## Manual Installation
 
-## Usage
-
-### Local Access
-
-To start SysPulse with local access only (default):
-
-```bash
-syspulse
-```
-
-This will start the server at `http://127.0.0.1:8000`
-
-### Remote Access
-
-To allow remote access to the metrics dashboard:
-
-```bash
-syspulse --remote
-```
-
-This will start the server at `http://0.0.0.0:8000`, making it accessible from other devices on the network.
-
-### Custom Port
-
-To use a different port:
-
-```bash
-syspulse --port 8080
-```
-
-### All Options
-
-```bash
-syspulse --help
-```
-
-## Development
-
-1. Clone the repository
-2. Create a virtual environment:
+1. Create a virtual environment:
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. Install development dependencies:
+2. Install dependencies:
 ```bash
-pip install -e ".[dev]"
+pip install -r src/requirements.txt
 ```
 
-4. Run tests:
+3. Run the application:
+```bash
+cd src
+uvicorn app:app --host 0.0.0.0 --port 8000
+```
+
+## API Endpoints
+
+- `GET /api/health` - Health check endpoint
+- `GET /api/metrics/cpu` - CPU metrics
+- `GET /api/metrics/memory` - Memory usage statistics
+- `GET /api/metrics/disk` - Disk space information
+
+## Project Structure
+
+```
+SysPulse/
+├── src/
+│   ├── app.py              # FastAPI application
+│   ├── frontend/           # Frontend assets
+│   └── requirements.txt    # Python dependencies
+├── docker/
+│   ├── Dockerfile         # Application Dockerfile
+│   └── docker-compose.yml # Docker Compose configuration
+├── tests/
+│   └── test_app.py        # Test cases
+└── README.md              # Project documentation
+```
+
+## Development
+
+1. Install development dependencies:
+```bash
+pip install -r src/requirements-dev.txt
+```
+
+2. Run tests:
 ```bash
 pytest
 ```
 
+3. Run linting:
+```bash
+flake8 src/ --exclude=src/frontend,src/__pycache__ --max-line-length=120
+```
+
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Features
+## Acknowledgments
 
-- Real-time system stats (CPU, RAM, Disk, etc.)
-- Secure REST API endpoints
-- ✅ Health check endpoint
-- 🐳 Docker & Docker Compose setup
-- ⚡ FastAPI for high performance
-- CI/CD with GitHub Actions
-- Infrastructure as Code (Terraform)
-- Monitoring with Prometheus + Grafana
+- FastAPI for the web framework
+- Prometheus for metrics collection
+- Grafana for visualization
+- psutil for system metrics
 
-## 📦 Tech Stack
+## Support
 
-- Python + FastAPI
-- Docker & GitHub Actions
-- AWS (EC2, S3)
-- Terraform, Prometheus, Grafana
+If you encounter any issues or have questions, please:
+1. Check the [Issues](https://github.com/yourusername/SysPulse/issues) page
+2. Create a new issue if your problem isn't already listed
 
-> Developed as part of DevOps Course Project @ GIKI
+## Roadmap
 
-## 🧪 Health Check
+- [ ] Add authentication
+- [ ] Support for multiple systems
+- [ ] Custom alerting rules
+- [ ] Historical data analysis
+- [ ] Mobile app support
 
-**Endpoint:**  
-`GET /health`
+## Authors
 
-Returns a JSON response indicating the status of the service.
+- Your Name - Initial work - [YourGitHub](https://github.com/yourusername)
+
+## Acknowledgments
+
+- Thanks to all contributors who have helped shape this project
+- Inspired by various system monitoring tools

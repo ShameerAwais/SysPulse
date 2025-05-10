@@ -24,23 +24,41 @@ wheels/
 venv/
 ENV/
 env/
+.env
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+.DS_Store
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+coverage.xml
+*.cover
 
 # Logs
 *.log
-
-# Local development
-.env
-.env.local
-.env.*.local
+logs/
 
 # Docker
 .docker/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraformrc
+terraform.rc
+
+# AWS
+.aws/
+*.pem
 
 # Windows
 *.Zone.Identifier
@@ -48,18 +66,7 @@ env/
 desktop.ini
 Thumbs.db
 
-# Terraform
-.terraform/
-*.tfstate
-*.tfstate.*
-*.tfvars
-!example.tfvars
-.terraformrc
-terraform.rc
-
 # System Files
-.DS_Store
-.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
@@ -72,6 +79,5 @@ __MACOSX
 *.db
 
 # Sensitive files
-*.pem
 *.zip
 

@@ -25,6 +25,12 @@ A modern, real-time system monitoring dashboard built with FastAPI, Docker, Prom
 
 ## Quick Start
 
+For local development and testing, please refer to our [Local Setup Guide](docs/LOCAL_SETUP.md) which includes:
+- Docker-based setup
+- Manual installation steps
+- Troubleshooting guide
+- Development instructions
+
 1. Clone the repository:
 ```bash
 git clone https://github.com/yourusername/SysPulse.git

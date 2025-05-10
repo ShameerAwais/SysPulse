@@ -40,7 +40,7 @@ def get_disk_metrics():
     total_size = 0
     total_used = 0
     total_free = 0
-    
+
     for partition in psutil.disk_partitions():
         try:
             usage = psutil.disk_usage(partition.mountpoint)
@@ -49,9 +49,9 @@ def get_disk_metrics():
             total_free += usage.free
         except (PermissionError, OSError):
             continue
-    
+
     total_percent = (total_used / total_size * 100) if total_size > 0 else 0
-    
+
     return {
         "total_gb": bytes_to_gb(total_size),
         "used_gb": bytes_to_gb(total_used),

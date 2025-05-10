@@ -25,6 +25,7 @@ def read_health():
 
 @app.get("/api/metrics/memory")
 def get_memory_metrics():
+    # Get host memory info
     mem = psutil.virtual_memory()
     return {
         "total_gb": bytes_to_gb(mem.total),
@@ -35,14 +36,30 @@ def get_memory_metrics():
 
 @app.get("/api/metrics/disk")
 def get_disk_metrics():
-    disk = psutil.disk_usage("/")
+    # Get host disk info for all mounted drives
+    total_size = 0
+    total_used = 0
+    total_free = 0
+    
+    for partition in psutil.disk_partitions():
+        try:
+            usage = psutil.disk_usage(partition.mountpoint)
+            total_size += usage.total
+            total_used += usage.used
+            total_free += usage.free
+        except (PermissionError, OSError):
+            continue
+    
+    total_percent = (total_used / total_size * 100) if total_size > 0 else 0
+    
     return {
-        "total_gb": bytes_to_gb(disk.total),
-        "used_gb": bytes_to_gb(disk.used),
-        "free_gb": bytes_to_gb(disk.free),
-        "percent": disk.percent,
+        "total_gb": bytes_to_gb(total_size),
+        "used_gb": bytes_to_gb(total_used),
+        "free_gb": bytes_to_gb(total_free),
+        "percent": round(total_percent, 2),
     }
 
 @app.get("/api/metrics/cpu")
 def get_cpu_metrics():
-    return {"cpu_percent": psutil.cpu_percent(interval=1)}
+    # Get host CPU usage
+    return {"cpu_percent": psutil.cpu_percent(interval=1, percpu=False)}

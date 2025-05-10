@@ -5,6 +5,7 @@ from fastapi.responses import HTMLResponse
 import psutil
 import os
 from pathlib import Path
+import platform
 
 app = FastAPI(title="SysPulse", description="System Monitoring Tool")
 
@@ -31,6 +32,7 @@ def read_health():
 @app.get("/api/metrics/memory")
 def get_memory_metrics():
     mem = psutil.virtual_memory()
+    print("DEBUG: psutil.virtual_memory() =", mem)
     return {
         "total_gb": bytes_to_gb(mem.total),
         "used_gb": bytes_to_gb(mem.used),
@@ -40,28 +42,24 @@ def get_memory_metrics():
 
 @app.get("/api/metrics/disk")
 def get_disk_metrics():
-    total_size = 0
-    total_used = 0
-    total_free = 0
-    
-    for partition in psutil.disk_partitions():
-        try:
-            usage = psutil.disk_usage(partition.mountpoint)
-            total_size += usage.total
-            total_used += usage.used
-            total_free += usage.free
-        except (PermissionError, OSError):
-            continue
-    
-    total_percent = (total_used / total_size * 100) if total_size > 0 else 0
-    
+    # Default to root partition
+    if platform.system() == "Windows":
+        partition = "C:\\"
+    else:
+        partition = "/"
+    usage = psutil.disk_usage(partition)
+    print(f"DEBUG: psutil.disk_usage({partition}) =", usage)
     return {
-        "total_gb": bytes_to_gb(total_size),
-        "used_gb": bytes_to_gb(total_used),
-        "free_gb": bytes_to_gb(total_free),
-        "percent": round(total_percent, 2),
+        "total_gb": bytes_to_gb(usage.total),
+        "used_gb": bytes_to_gb(usage.used),
+        "free_gb": bytes_to_gb(usage.free),
+        "percent": usage.percent,
     }
 
 @app.get("/api/metrics/cpu")
 def get_cpu_metrics():
-    return {"cpu_percent": psutil.cpu_percent(interval=1, percpu=False)} 
+    # Call once to initialize, then again for real value
+    psutil.cpu_percent(interval=0.1)
+    cpu_percent = psutil.cpu_percent(interval=1, percpu=False)
+    print("DEBUG: psutil.cpu_percent =", cpu_percent)
+    return {"cpu_percent": cpu_percent} 

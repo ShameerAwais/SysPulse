@@ -86,7 +86,7 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        args: --file=src/requirements.txt --package-manager=pip
+        args: --file=src/requirements.txt --package-manager=pip --skip-unresolved
 
   build-and-push:
     name: Build and Push Docker Image

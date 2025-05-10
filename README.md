@@ -136,7 +136,7 @@ If you encounter any issues or have questions, please:
 
 ## Authors
 
-- Your Name - Initial work - [YourGitHub](https://github.com/yourusername)
+- Muhammad Shameer Awais - Initial work - [YourGitHub](https://github.com/ShameerAwais)
 
 ## Acknowledgments
 

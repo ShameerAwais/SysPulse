@@ -19,7 +19,7 @@ PACKAGE_DIR = Path(__file__).parent
 app.mount("/static", StaticFiles(directory=PACKAGE_DIR / "static"), name="static")
 
 # Setup templates
-templates = Jinja2Templates(directory=PACKAGE_DIR / "templates")
+templates = Jinja2Templates(directory=str(PACKAGE_DIR / "templates"))
 
 def bytes_to_gb(b):
     return round(b / (1024 ** 3), 2)

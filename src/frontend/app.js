@@ -1,34 +1,61 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const updateMetrics = () => {
-        // Fetch CPU data
-        fetch('/metrics/cpu')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('cpu-percent').textContent = data.cpu_percent;
-            });
+// Function to format numbers to 2 decimal places
+function formatNumber(num) {
+    return Number(num).toFixed(2);
+}
 
-        // Fetch Memory data
-        fetch('/metrics/memory')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('memory-percent').textContent = data.percent;
-                document.getElementById('memory-total').textContent = data.total_gb;
-                document.getElementById('memory-used').textContent = data.used_gb;
-                document.getElementById('memory-free').textContent = data.free_gb;
-            });
+// Function to update the timestamp
+function updateTimestamp() {
+    const now = new Date();
+    document.getElementById('last-update').textContent = now.toLocaleString();
+}
 
-        // Fetch Disk data
-        fetch('/metrics/disk')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('disk-percent').textContent = data.percent;
-                document.getElementById('disk-total').textContent = data.total_gb;
-                document.getElementById('disk-used').textContent = data.used_gb;
-                document.getElementById('disk-free').textContent = data.free_gb;
-            });
-    };
+// Function to fetch and update metrics
+async function fetchMetrics() {
+    try {
+        const response = await fetch('/api/metrics');
+        const data = await response.json();
+        
+        // Update CPU metrics
+        document.getElementById('cpu-percent').textContent = formatNumber(data.cpu.percent);
+        
+        // Update Memory metrics
+        document.getElementById('memory-percent').textContent = formatNumber(data.memory.percent);
+        document.getElementById('memory-total').textContent = formatNumber(data.memory.total);
+        document.getElementById('memory-used').textContent = formatNumber(data.memory.used);
+        document.getElementById('memory-free').textContent = formatNumber(data.memory.free);
+        
+        // Update Disk metrics
+        document.getElementById('disk-percent').textContent = formatNumber(data.disk.percent);
+        document.getElementById('disk-total').textContent = formatNumber(data.disk.total);
+        document.getElementById('disk-used').textContent = formatNumber(data.disk.used);
+        document.getElementById('disk-free').textContent = formatNumber(data.disk.free);
+        
+        // Update timestamp
+        updateTimestamp();
+    } catch (error) {
+        console.error('Error fetching metrics:', error);
+        // Show error state in UI
+        document.querySelectorAll('.metric-card span').forEach(span => {
+            span.textContent = 'Error';
+            span.style.color = '#e74c3c';
+        });
+    }
+}
 
-    // Update the metrics every 5 seconds
-    setInterval(updateMetrics, 5000);
-    updateMetrics();  // Initial load
-});
+// Function to refresh metrics (called by button click)
+function refreshMetrics() {
+    const button = document.querySelector('.refresh-button');
+    button.textContent = 'Refreshing...';
+    button.disabled = true;
+    
+    fetchMetrics().finally(() => {
+        button.textContent = 'Refresh Metrics';
+        button.disabled = false;
+    });
+}
+
+// Initial load
+fetchMetrics();
+
+// Auto-refresh every 30 seconds
+setInterval(fetchMetrics, 30000);

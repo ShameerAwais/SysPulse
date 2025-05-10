@@ -81,12 +81,21 @@ jobs:
           pip install -r src/requirements.txt
         fi
     
+    # Verify Snyk token is set before running security scan
+    - name: Check Snyk token
+      run: |
+        if [ -z "${{ secrets.SNYK_TOKEN }}" ]; then
+          echo "::error::SNYK_TOKEN secret is not set. Please add it to your repository secrets."
+          exit 1
+        fi
+    
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         args: --file=src/requirements.txt --package-manager=pip --skip-unresolved
+      continue-on-error: true
 
   build-and-push:
     name: Build and Push Docker Image

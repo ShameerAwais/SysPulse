@@ -1,32 +1,22 @@
-# Start with a slim Python image
+# Use Python 3.10 slim image as the base
 FROM python:3.10-slim
 
-# Set the working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy only the requirements.txt first to take advantage of Docker layer caching
-COPY requirements.txt /app/
+# Copy requirements file and install dependencies
+COPY src/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# Copy the syspulse package (including static and templates)
+COPY syspulse /app/syspulse
 
-# Copy the backend and frontend code into the container
-# This step includes both your backend (app.py) and frontend files (index.html, app.js, style.css)
-COPY . /app/
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PORT=8000
 
-# Copy templates and static files into the correct location
-COPY syspulse/templates /app/syspulse/templates
-COPY syspulse/static /app/syspulse/static
-
-# Expose the port where FastAPI will run (default is 8000)
+# Expose the port
 EXPOSE 8000
 
-# Set the PYTHONPATH environment variable so that Python can find 'src'
-ENV PYTHONPATH=/app/src
-
-# Serve the static files from the 'frontend' directory via FastAPI
-# This will allow serving HTML, CSS, JS under the '/static' route
-RUN mkdir -p /app/src/frontend && cp -r /app/frontend /app/src/
-
-# Command to run the application (uvicorn is the ASGI server for FastAPI)
-CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the application
+CMD ["uvicorn", "syspulse.server:app", "--host", "0.0.0.0", "--port", "8000"]

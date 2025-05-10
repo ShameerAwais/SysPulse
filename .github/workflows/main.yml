@@ -58,7 +58,8 @@ jobs:
     
     - name: Run tests
       run: |
-        pytest --cov=./ --cov-report=xml
+        cd src
+        pytest --cov=. --cov-report=xml
 
   security:
     name: Security Scan

@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from prometheus_fastapi_instrumentator import Instrumentator
 import psutil
+import os
 
 app = FastAPI()
 
@@ -10,7 +11,9 @@ instrumentator = Instrumentator()
 instrumentator.instrument(app).expose(app)
 
 # Serve static files for the frontend (HTML, CSS, JS)
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+frontend_dir = os.path.join(os.path.dirname(__file__), "frontend")
+if os.path.exists(frontend_dir):
+    app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
 
 # Function to convert bytes to GB
 def bytes_to_gb(b):

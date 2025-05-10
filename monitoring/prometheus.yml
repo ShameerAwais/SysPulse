@@ -2,10 +2,13 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'fastapi-app'
+  # Scrape host system metrics
+  - job_name: 'host_system'
     static_configs:
-      - targets: ['app:8000']
+      - targets: ['localhost:9090']
 
-  - job_name: 'node'
+  # Scrape Docker container metrics via cAdvisor
+  - job_name: 'docker'
+    metrics_path: '/metrics'
     static_configs:
-      - targets: ['node-exporter:9100']
+      - targets: ['docker_host_ip:8080']

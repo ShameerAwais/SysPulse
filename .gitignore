@@ -1,3 +1,4 @@
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -36,13 +37,16 @@ env/
 # Local development
 .env
 .env.local
+.env.*.local
 
 # Docker
 .docker/
 
-# Windows Zone.Identifier files
+# Windows
+*.Zone.Identifier
 *:Zone.Identifier
-*:Zone.Identifier:Zone.Identifier
+desktop.ini
+Thumbs.db
 
 # Terraform
 .terraform/
@@ -53,17 +57,21 @@ env/
 .terraformrc
 terraform.rc
 
-# Ignore Mac system files
+# System Files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 __MACOSX
 
-# Ignore database files
+# Database files
 *.sqlite3
 *.db
 
-# Ignore sensitive keys
+# Sensitive files
 *.pem
-
-.terraform/
 *.zip
 

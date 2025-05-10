@@ -1,16 +1,57 @@
 __pycache__/
-*.pyc
-*.log
-.env
-.terraform/
-*.tfstate
-*.tfstate.backup
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+
+# IDE
 .idea/
 .vscode/
-*.pem
-.grafana/
-node_modules/
+*.swp
+*.swo
 
+# Logs
+*.log
+
+# Local development
+.env
+.env.local
+
+# Docker
+.docker/
+
+# Windows Zone.Identifier files
+*:Zone.Identifier
+*:Zone.Identifier:Zone.Identifier
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!example.tfvars
+.terraformrc
+terraform.rc
 
 # Ignore Mac system files
 .DS_Store
@@ -19,11 +60,6 @@ __MACOSX
 # Ignore database files
 *.sqlite3
 *.db
-
-# Ignore Terraform files
-.terraform/
-*.tfstate
-*.tfstate.backup
 
 # Ignore sensitive keys
 *.pem

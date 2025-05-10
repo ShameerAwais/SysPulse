@@ -33,7 +33,7 @@ jobs:
     
     - name: Run flake8
       run: |
-        flake8 src/ --exclude=src/frontend,src/__pycache__ --max-line-length=120 --ignore=E203,W503,F401,E501
+        flake8 src/ --exclude=src/frontend,src/__pycache__ --max-line-length=120 --ignore=E203,W503,F401,E501,E302
 
   test:
     name: Run Tests

@@ -42,6 +42,15 @@ docker-compose up -d
 - Prometheus: http://localhost:9090
 - Grafana: http://localhost:3000
 
+## AWS Deployment
+
+For deploying SysPulse on AWS, please refer to our [Deployment Guide](docs/DEPLOYMENT.md) which includes:
+- AWS infrastructure setup
+- Terraform configuration
+- Security considerations
+- Troubleshooting steps
+- Maintenance procedures
+
 ## Manual Installation
 
 1. Create a virtual environment:

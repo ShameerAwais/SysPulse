@@ -54,8 +54,7 @@ pip install -r src/requirements.txt
 
 ### 4. Run the Application
 ```bash
-cd src
-uvicorn app:app --host 0.0.0.0 --port 8000
+uvicorn syspulse.server:app --host 0.0.0.0 --port 8000
 ```
 
 ### 5. Access the Dashboard

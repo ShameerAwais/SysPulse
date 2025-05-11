@@ -82,8 +82,7 @@ pip install -r src/requirements.txt
 
 3. Run the application:
 ```bash
-cd src
-uvicorn app:app --host 0.0.0.0 --port 8000
+uvicorn syspulse.server:app --host 0.0.0.0 --port 8000
 ```
 
 ## API Endpoints

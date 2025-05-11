@@ -22,9 +22,9 @@ if [ -d .git ]; then
     git pull
 fi
 
-# Start the application
-echo "🚀 Starting SysPulse..."
-docker-compose up -d
+# Start the application (advanced dashboard)
+echo "🚀 Starting SysPulse (Advanced Dashboard)..."
+uvicorn syspulse.server:app --host 0.0.0.0 --port 8000
 
 echo "
 ✅ SysPulse is now running! You can access:

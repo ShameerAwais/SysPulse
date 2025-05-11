@@ -23,9 +23,9 @@ if exist .git (
     git pull
 )
 
-REM Start the application
-echo 🚀 Starting SysPulse...
-docker-compose up -d
+REM Start the application (advanced dashboard)
+echo 🚀 Starting SysPulse (Advanced Dashboard)...
+uvicorn syspulse.server:app --host 0.0.0.0 --port 8000
 
 echo.
 echo ✅ SysPulse is now running! You can access:

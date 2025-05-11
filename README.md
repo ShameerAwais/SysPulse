@@ -16,8 +16,7 @@ A modern, real-time system monitoring dashboard built with FastAPI, Docker, Prom
 - 🐳 Docker containerization
 - 📈 Prometheus metrics integration
 - 🎨 Grafana visualization support
-- 🔔 Custom alert notifications
-- 📱 Mobile-responsive design
+
 
 ---
 

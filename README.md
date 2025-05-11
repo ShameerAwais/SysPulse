@@ -2,7 +2,7 @@
 
 A modern, real-time system monitoring dashboard built with FastAPI, Docker, Prometheus, and Grafana. Monitor your system's CPU, memory, disk usage, and more with a beautiful, responsive interface.
 
-![SysPulse Dashboard](docs/images/dashboard.png)
+![SysPulse Dashboard]({41975602-C791-41AA-A2F6-BEEE36A12F73}.png)
 
 ## Features
 

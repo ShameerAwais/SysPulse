@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from prometheus_fastapi_instrumentator import Instrumentator
 import psutil
 import os
@@ -14,6 +15,11 @@ instrumentator.instrument(app).expose(app)
 frontend_dir = os.path.join(os.path.dirname(__file__), "frontend")
 if os.path.exists(frontend_dir):
     app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
+
+# Serve the dashboard at the root URL
+@app.get("/")
+def read_dashboard():
+    return FileResponse(os.path.join(frontend_dir, "index.html"))
 
 # Function to convert bytes to GB
 def bytes_to_gb(b):

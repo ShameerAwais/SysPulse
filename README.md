@@ -17,20 +17,17 @@ A modern, real-time system monitoring dashboard built with FastAPI, Docker, Prom
 - 📈 Prometheus metrics integration
 - 🎨 Grafana visualization support
 - 🔔 Custom alert notifications
+- 📱 Mobile-responsive design
 
-## Prerequisites
+## Quick Start (One-Command Deployment)
 
-- Python 3.8+
-- Docker and Docker Compose
-- Git
+### Prerequisites
+- Docker Desktop (includes Docker and Docker Compose)
+  - [Download for Windows](https://docs.docker.com/desktop/install/windows-install/)
+  - [Download for Mac](https://docs.docker.com/desktop/install/mac-install/)
+  - [Download for Linux](https://docs.docker.com/desktop/install/linux-install/)
 
-## Quick Start
-
-For local development and testing, please refer to our [Local Setup Guide](docs/LOCAL_SETUP.md) which includes:
-- Docker-based setup
-- Manual installation steps
-- Troubleshooting guide
-- Development instructions
+### Running SysPulse
 
 1. Clone the repository:
 ```bash
@@ -38,16 +35,28 @@ git clone https://github.com/yourusername/SysPulse.git
 cd SysPulse
 ```
 
-2. Start the application using Docker Compose:
-```bash
-docker-compose up -d
-```
+2. Run the application:
+- On Windows: Double-click `run.bat` or run it in PowerShell
+- On Mac/Linux: Run `./run.sh` in terminal
 
-3. Access the dashboard:
-- Web Interface: http://localhost:8000
-- API Documentation: http://localhost:8000/docs
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000
+That's it! SysPulse will automatically:
+- Check for required dependencies
+- Pull the latest changes
+- Start all services
+- Display access URLs
+
+### Accessing SysPulse
+Once running, you can access:
+- 📊 Dashboard: http://localhost:8000
+- 📚 API Documentation: http://localhost:8000/docs
+- 📈 Prometheus: http://localhost:9090
+- 🎨 Grafana: http://localhost:3000
+
+### Stopping SysPulse
+To stop the application, run:
+```bash
+docker-compose down
+```
 
 ## AWS Deployment
 

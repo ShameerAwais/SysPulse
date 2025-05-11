@@ -55,6 +55,7 @@ jobs:
         if [ -f "src/requirements.txt" ]; then
           pip install -r src/requirements.txt
         fi
+        pip install -e .
     
     - name: Run tests
       run: |

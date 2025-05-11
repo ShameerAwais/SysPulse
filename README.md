@@ -19,7 +19,44 @@ A modern, real-time system monitoring dashboard built with FastAPI, Docker, Prom
 - 🔔 Custom alert notifications
 - 📱 Mobile-responsive design
 
-## Quick Start (One-Command Deployment)
+---
+
+# 1. Running Locally (Manual Python Setup)
+
+### Prerequisites
+- Python 3.8+
+- Git
+
+### Steps
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ShameerAwais/SysPulse.git
+   cd SysPulse
+   ```
+2. **Create and activate a virtual environment:**
+   ```bash
+   # On Windows
+   python -m venv venv
+   venv\Scripts\activate
+   # On macOS/Linux
+   python -m venv venv
+   source venv/bin/activate
+   ```
+3. **Install dependencies:**
+   ```bash
+   pip install -r src/requirements.txt
+   ```
+4. **Run the application:**
+   ```bash
+   uvicorn syspulse.server:app --host 0.0.0.0 --port 8000
+   ```
+5. **Access the dashboard:**
+   - Web Interface: http://localhost:8000
+   - API Documentation: http://localhost:8000/docs
+
+---
+
+# 2. Deployment through Docker (Recommended)
 
 ### Prerequisites
 - Docker Desktop (includes Docker and Docker Compose)
@@ -27,63 +64,47 @@ A modern, real-time system monitoring dashboard built with FastAPI, Docker, Prom
   - [Download for Mac](https://docs.docker.com/desktop/install/mac-install/)
   - [Download for Linux](https://docs.docker.com/desktop/install/linux-install/)
 
-### Running SysPulse
+### Steps
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ShameerAwais/SysPulse.git
+   cd SysPulse
+   ```
+2. **Run the application:**
+   - On Windows: Double-click `run.bat` or run it in PowerShell
+   - On Mac/Linux: Run `./run.sh` in terminal
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/SysPulse.git
-cd SysPulse
-```
+   *Alternatively, you can use Docker Compose directly:*
+   ```bash
+   docker-compose up -d
+   ```
+3. **Access the dashboard:**
+   - Web Interface: http://localhost:8000
+   - API Documentation: http://localhost:8000/docs
+   - Prometheus: http://localhost:9090
+   - Grafana: http://localhost:3000
 
-2. Run the application:
-- On Windows: Double-click `run.bat` or run it in PowerShell
-- On Mac/Linux: Run `./run.sh` in terminal
+4. **Stopping SysPulse:**
+   ```bash
+   docker-compose down
+   ```
 
-That's it! SysPulse will automatically:
-- Check for required dependencies
-- Pull the latest changes
-- Start all services
-- Display access URLs
+---
 
-### Accessing SysPulse
-Once running, you can access:
-- 📊 Dashboard: http://localhost:8000
-- 📚 API Documentation: http://localhost:8000/docs
-- 📈 Prometheus: http://localhost:9090
-- 🎨 Grafana: http://localhost:3000
+# 3. Deployment through AWS
 
-### Stopping SysPulse
-To stop the application, run:
-```bash
-docker-compose down
-```
+SysPulse can be deployed on AWS for production or cloud use. For a full guide, see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-## AWS Deployment
+### Typical Steps
+1. **Provision AWS infrastructure** (using Terraform or AWS Console)
+2. **Build and push Docker images** (to ECR or another registry)
+3. **Launch EC2 instances or ECS services**
+4. **Configure security groups, networking, and monitoring**
+5. **Access the dashboard using your AWS public IP or domain**
 
-For deploying SysPulse on AWS, please refer to our [Deployment Guide](docs/DEPLOYMENT.md) which includes:
-- AWS infrastructure setup
-- Terraform configuration
-- Security considerations
-- Troubleshooting steps
-- Maintenance procedures
+*See the deployment guide for detailed, step-by-step instructions, including security and troubleshooting tips.*
 
-## Manual Installation
-
-1. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-2. Install dependencies:
-```bash
-pip install -r src/requirements.txt
-```
-
-3. Run the application:
-```bash
-uvicorn syspulse.server:app --host 0.0.0.0 --port 8000
-```
+---
 
 ## API Endpoints
 
@@ -96,34 +117,33 @@ uvicorn syspulse.server:app --host 0.0.0.0 --port 8000
 
 ```
 SysPulse/
+├── syspulse/               # Main application (advanced dashboard)
+│   ├── server.py           # FastAPI app entry point
+│   ├── static/             # Frontend static files
+│   └── templates/          # Jinja2 HTML templates
 ├── src/
-│   ├── app.py              # FastAPI application
-│   ├── frontend/           # Frontend assets
 │   └── requirements.txt    # Python dependencies
-├── docker/
-│   ├── Dockerfile         # Application Dockerfile
-│   └── docker-compose.yml # Docker Compose configuration
-├── tests/
-│   └── test_app.py        # Test cases
-└── README.md              # Project documentation
+├── run.sh                  # Quick start script (Linux/Mac)
+├── run.bat                 # Quick start script (Windows)
+├── docker-compose.yml      # Docker Compose configuration
+├── Dockerfile              # Docker build file
+└── README.md               # Project documentation
 ```
 
 ## Development
 
 1. Install development dependencies:
-```bash
-pip install -r src/requirements-dev.txt
-```
-
+   ```bash
+   pip install -r src/requirements-dev.txt
+   ```
 2. Run tests:
-```bash
-pytest
-```
-
+   ```bash
+   pytest
+   ```
 3. Run linting:
-```bash
-flake8 src/ --exclude=src/frontend,src/__pycache__ --max-line-length=120
-```
+   ```bash
+   flake8 src/ --exclude=src/frontend,src/__pycache__ --max-line-length=120
+   ```
 
 ## Contributing
 
@@ -137,32 +157,12 @@ flake8 src/ --exclude=src/frontend,src/__pycache__ --max-line-length=120
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
-
-- FastAPI for the web framework
-- Prometheus for metrics collection
-- Grafana for visualization
-- psutil for system metrics
-
 ## Support
 
 If you encounter any issues or have questions, please:
 1. Check the [Issues](https://github.com/yourusername/SysPulse/issues) page
 2. Create a new issue if your problem isn't already listed
 
-## Roadmap
+---
 
-- [ ] Add authentication
-- [ ] Support for multiple systems
-- [ ] Custom alerting rules
-- [ ] Historical data analysis
-- [ ] Mobile app support
-
-## Authors
-
-- Muhammad Shameer Awais - Initial work - [YourGitHub](https://github.com/ShameerAwais)
-
-## Acknowledgments
-
-- Thanks to all contributors who have helped shape this project
-- Inspired by various system monitoring tools
+Enjoy monitoring with SysPulse! 🚀
